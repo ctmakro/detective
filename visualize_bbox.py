@@ -29,6 +29,7 @@ with open(csvpath,'r') as f:
         #     int(float(maxx)),\
         #     int((1-float(maxy)))
 
+        if len(name) >10 : name = name[0:10]
         # paint image with bounding boxes
         cv2.rectangle(img,
             (minx+1,miny+1),
@@ -65,3 +66,6 @@ print('bbox:',bboxcount)
 # display
 cv2.imshow(imgpath,img)
 cv2.waitKey(0)
+
+# save
+cv2.imwrite(path+'_bbox.jpg', img)

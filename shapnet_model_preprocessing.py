@@ -18,6 +18,15 @@ def remove_obj(obj):
     # Remove the meshes from memory too
     bpy.data.meshes.remove(obj.data, do_unlink=True)
     
+    # remove the materials
+    for slot in obj.material_slots:
+        bpy.data.materials.remove(slot.material, do_unlink=True)
+        for texslot in slot.material.texture_slots:
+            if texslot:
+                bpy.data.textures.remove(texslot.texture, do_unlink=True)
+                if texslot.texture.image:
+                    bpy.data.images.remove(texslot.texture.image, do_unlink=True)
+    
     #for mesh in bpy.data.meshes:
     #    bpy.data.meshes.remove(mesh, do_unlink=True)
     #    print(meshes_to_remove)
@@ -134,7 +143,7 @@ def import_obj(path):
     print('imported:',imported)
 
 # path to directories to scan
-basedir = '/home/qianyonhliang/shapespace/02801938/'
+basedir = '/home/qianyonhliang/shapespace/02924116/'
 
 def main():
     # scan all dirs, process and save the model.obj found under each dir
